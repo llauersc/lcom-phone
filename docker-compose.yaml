@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+
+  lcom-phone:
+    build:
+      context: ../lcom-phone
+    networks:
+      - container_localnet
+    volumes:
+      - ./src:/opt/app/src
+    ports:
+      - "8000:8000"
+    env_file: .env
+    restart: on-failure
+    command: [
+      "pipenv", "run", "hypercorn",
+      "-k", "uvloop",
+      "main:app",
+      "-b", "0.0.0.0",
+      "--reload"
+    ]
+
+  lcom-redis:
+    image: "redis:7.0-alpine"
+    networks:
+      - container_localnet
+    ports:
+      - "6380:6379"
+
+
+networks:
+  container_localnet:
+    external: true
+  nats:
+    external: true
