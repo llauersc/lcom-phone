@@ -36,5 +36,7 @@ where split_part(full_names.name, '.', 1) = short_names.name;
 update full_names fn
 set status = sn.status
 from short_names sn
-where split_part(fn.name, '.', 1) = sn.name
+where regexp_replace(fn.name, E'\\.[^.]+$', '') = sn.name;
+
+если есть . в имени файла
 ```
