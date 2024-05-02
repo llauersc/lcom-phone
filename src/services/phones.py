@@ -22,6 +22,7 @@ class PhonesService:
         self.repo = repo
 
     async def add_data(self, data: DataValidation, forced):
+        """ Можно было бы использовать и для апдейта и для создания, но решено логику разделить """
         if forced or not await self.repo.get_data(data.phone):
             return await self.repo.set_data(data.phone, data.address)
         raise DataAlreadyExist("Запись с таким номером уже существует")

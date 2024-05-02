@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-  lcom-phone:
+  phones:
     build:
       context: ../lcom-phone
     networks:
@@ -21,7 +21,7 @@ services:
       "--reload"
     ]
 
-  lcom-redis:
+  redis:
     image: "redis:7.0-alpine"
     networks:
       - container_localnet
